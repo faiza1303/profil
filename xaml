@@ -1,0 +1,123 @@
+<e:Page xmlns="http://e-i.com/devb/webxforms"
+        xmlns:e="http://e-i.com/ergo/v3"
+        xmlns:d="http://e-i.com/devb/devbooster"        
+        xmlns:a="http://e-i.com/ESD1_WALPHA"
+        xmlns:my="http://e-i.com/CONTROLS"
+        DocType="Html5"
+        Onload="this.FindElement('Libelle').Focus()" DefaultSubmissionElement="butFilter">
+
+  <e:MainFunctionBlock>
+    <e:MainFunctionBlock.Title>Liste des règles rgaa par profil</e:MainFunctionBlock.Title>
+
+    <e:SecondaryFunctionBlock IsExpandable="True" >
+      <e:SecondaryFunctionBlock.Buttons>
+        <e:ButtonsBlock OrderButtons="True">
+          <e:CustomButton Position="Primary" Type="Search" Id="butFilter" Submission="" />
+          <e:CustomButton Type="Reset" Navigation="DoReset" />
+        </e:ButtonsBlock>
+      </e:SecondaryFunctionBlock.Buttons>
+      <e:SecondaryFunctionBlock.Title>Critères de recherche</e:SecondaryFunctionBlock.Title>
+      <e:Table Aria.Role="presentation" Type="Input" Css.Width="100%">
+        <e:Colgroup Aria.Role="presentation">
+          <e:Col Css.Width="15%" />
+          <e:Col />
+        </e:Colgroup>
+        <e:Tbody>
+          <e:Tr>
+            <e:Td Css.Class="ei-saisie__th">
+              <P Css.Class="titlig">
+                <e:Label For="Libelle">Libellé</e:Label>
+              </P>
+            </e:Td>
+            <e:Td>
+              <e:Input Ref="Data/Search/label" Width="25em" Id="Libelle" />
+            </e:Td>
+          </e:Tr>
+
+
+        </e:Tbody>
+      </e:Table>
+    </e:SecondaryFunctionBlock>
+
+    <e:Table Type="List" Summary="Liste des règles rgaa" Width="100%">
+      <e:Col  />
+      <e:Col />
+      <e:Col Width="5%" />
+      <e:Col Width="5%"  />
+      <e:Col Width="5%"  />
+      <e:Col Width="5%"  />
+      <e:Col Width="5%"  />
+      <e:Col Width="5%"  />
+      <e:Col Width="7%"  />
+      <e:Thead>
+        <e:Tr>
+          <e:ThSort OrderExpr="Data/Wordingorder" AscSubmission="DoSort,param('wordingorder','Asc')" DescSubmission="DoSort,param('wordingorder','Desc')" Scope="col">Critère</e:ThSort>
+          <e:Th Scope="col">Libellé</e:Th>
+          <e:Th Scope="col">MOA</e:Th>
+          <e:Th Scope="col">MOE</e:Th>
+          <e:Th Scope="col">Ergo/UX</e:Th>
+          <e:Th Scope="col">Intégrateur</e:Th>
+          <e:Th Scope="col">Référent</e:Th>
+          <e:Th Scope="col">Webmaster</e:Th>
+          <e:Th Class="a_actions c" Scope="col">Actions</e:Th>
+        </e:Tr>
+      </e:Thead>
+      <e:Tbody>
+        <d:If Condition="{DataBinding not(Data/RgaaList/RgaaProfilListItemViewModel)}">
+          <d:If.Content>
+            <e:Tr>
+              <e:Td Class="a_vide" Colspan="4">
+                Aucune item n'est présente, n'est encore disponible.
+              </e:Td>
+            </e:Tr>
+          </d:If.Content>
+          <d:If.Else>
+            <d:Foreach Nodeset="Data/RgaaList/RgaaProfilListItemViewModel">
+              <e:Tr>
+                <e:Td>
+                  <e:Link  Href="{DataBinding Rgaa_Critere_Link}" Target="_blank">
+                    <e:Ellipsis Title="Lien vers documentation RGAA Critère">
+                      <e:Output Ref="Rgaa_Critere"/>
+                    </e:Ellipsis>
+                  </e:Link>
+                </e:Td>
+                <e:Td>
+                  <e:Output Ref="Rgaa_Libelle" />
+                </e:Td>
+                <e:Td>
+                  <e:Output Ref="isMOA" />
+                </e:Td>
+                <e:Td>
+                  <e:Output Ref="isMOE" />
+                </e:Td>
+                <e:Td>
+                  <e:Output Ref="isErgoUX" />
+                </e:Td>
+                <e:Td>
+                  <e:Output Ref="isIntegrator" />
+                </e:Td>
+                <e:Td>
+                  <e:Output Ref="isReferent" />
+                </e:Td>
+                <e:Td>
+                  <e:Output Ref="isWebmaster" />
+                </e:Td>
+                <e:TdActionsList>
+                  <e:TdActionItem Navigation="DoUpdate, param('rgaaId', Rgaa_Critere)" Type="Update">Modifier</e:TdActionItem>
+                </e:TdActionsList>
+              </e:Tr>
+            </d:Foreach>
+          </d:If.Else>
+        </d:If>
+      </e:Tbody>
+    </e:Table>
+
+    <Br/>
+    <e:StackPanel JustifyContent = "Center">
+      <Div>
+        <e:Output Id="compteur" Appearance="compact" Ref="Data/Compteur"/>
+      </Div>
+    </e:StackPanel>
+    <Br/>
+  </e:MainFunctionBlock>
+</e:Page>
