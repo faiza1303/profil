@@ -1,0 +1,29 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using CDM.DevbCommon;
+using CDM.DevbCommon.ApplicationData;
+using CDM.DevbCommon.XForms.ObjectDescription;
+using CDM.ESD1_DOCS.ViewModels.NormeAccess.Rgaa;
+using ESD1_ACOR.App_CSharp.ViewModels.NormeAccess.Rgaa;
+
+namespace CDM.ESD1_DOCS.ViewModels
+{
+    /// <summary>
+    /// DTO associé à la page
+    /// </summary>
+    public class RgaaProfilListViewModel
+    {
+        public List<RgaaProfilListItemViewModel> RgaaList { get; set; }
+
+        public string Wordingorder { get; set; }
+
+        [Submit]
+        public SearchRgaa Search { get; set; }
+
+        public Catalog Catalog { get; set; }
+
+        public int Compteur { get; set; }
+    }
+}
